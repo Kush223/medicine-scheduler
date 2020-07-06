@@ -33,6 +33,7 @@ public class SignupFragment extends Fragment {
         TextView alreadyUser =(TextView)root.findViewById(R.id.already_user);
         alreadyUser.setOnClickListener(v -> {
             if(getActivity()!=null) {
+                Log.v("TAG","success");
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragment_auth_container, new loginFragment())
