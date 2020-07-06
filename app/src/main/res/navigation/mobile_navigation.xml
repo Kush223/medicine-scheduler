@@ -11,11 +11,11 @@
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home"/>
 
-    <fragment
-        android:id="@+id/nav_login"
-        android:name="android.example.medicinescheduerapp.ui.login.loginFragment"
-        android:label="Login"
-        tools:layout="@layout/fragment_login"/>
+    <activity
+        android:id="@+id/nav_account"
+        android:name="android.example.medicinescheduerapp.ui.login.loginSignUpActivity"
+        android:label="Account"
+        tools:layout="@layout/activity_login_signup"/>
 
 
 

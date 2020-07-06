@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -39,6 +41,7 @@ public class loginFragment extends Fragment  {
     private CheckBox show_hide_password;
     private JsonPlaceholderApi jsonPlaceholderApi;
     private Button loginBtn;
+    private TextView createaccount;
 
 
 
@@ -52,6 +55,8 @@ public class loginFragment extends Fragment  {
          password = (EditText) root.findViewById(R.id.login_password);
          loginResult=(TextView) root.findViewById(R.id.loginResult);
          loginBtn=(Button) root.findViewById(R.id.loginBtn);
+
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 
 
         Gson gson = new GsonBuilder().serializeNulls().create();
@@ -114,8 +119,26 @@ public class loginFragment extends Fragment  {
 
             }
         });
+
         return root;
 
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        createaccount =(TextView)view.findViewById(R.id.createAccount);
+        createaccount.setOnClickListener(view1 -> {
+            Fragment fragment =new SignupFragment();
+            if(getActivity()!=null) {
+                Log.v("TAG","Success");
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_auth_container, new SignupFragment())
+                        .commit();
+            }
+        });
 
     }
 
