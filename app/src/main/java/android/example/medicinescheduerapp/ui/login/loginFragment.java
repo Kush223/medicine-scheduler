@@ -146,7 +146,7 @@ public class loginFragment extends Fragment  {
         String emailEntered = email.getText().toString();
         String passwordEntered = password.getText().toString();
         Post post = new Post(emailEntered,passwordEntered);
-        Call<Post> call = jsonPlaceholderApi.signupUser(post);
+        Call<Post> call = jsonPlaceholderApi.loginUser(post);
         call.enqueue(new Callback<Post>() {
             @Override
             public void onResponse(Call<Post> call, Response<Post> response) {
