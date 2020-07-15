@@ -1,6 +1,8 @@
 package android.example.medicinescheduerapp.ui.login;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.example.medicinescheduerapp.R;
 import android.example.medicinescheduerapp.ui.JsonPlaceholderApi;
 import android.example.medicinescheduerapp.ui.Post;
@@ -10,12 +12,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -30,12 +35,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SignupFragment extends Fragment {
 
+    private String DocPat = "docpat";
+
     private Context context;
     private EditText userEmailId;
     private EditText userPassword;
     private Button signupBtn;
     private JsonPlaceholderApi jsonPlaceholderApi;
-    private TextView signupResult;
+    private CheckBox docCheckbox;
+    private CheckBox patCheckbox;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,7 +62,8 @@ public class SignupFragment extends Fragment {
         userEmailId = (EditText) root.findViewById(R.id.userEmailId);
         userPassword= (EditText) root.findViewById(R.id.password);
         signupBtn = (Button) root.findViewById(R.id.signUpBtn);
-        signupResult=(TextView) root.findViewById(R.id.signupResult);
+        docCheckbox=(CheckBox) root.findViewById(R.id.doctor_checkbox);
+        patCheckbox=(CheckBox) root.findViewById(R.id.patient_checkbox);
 
         Gson gson = new GsonBuilder().serializeNulls().create();
 
@@ -87,9 +96,10 @@ public class SignupFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(userEmailId.getText().toString().isEmpty() || userPassword.getText().toString().isEmpty()){
-                    signupResult.setText("Email or password not entered");
+                    Toast.makeText(getContext(),"Email or password not entered",Toast.LENGTH_SHORT).show();
                     return;
                 }
+
                 signupUser();
             }
         });
@@ -104,16 +114,32 @@ public class SignupFragment extends Fragment {
             @Override
             public void onResponse(Call<Post> call, Response<Post> response) {
                 if(!response.isSuccessful()){
-                    signupResult.setText("User not signed in");
+                    Toast.makeText(getContext(),"User not signed in",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 Post postResponse = response.body();
-                signupResult.setText("Signed in");
+                SharedPreferences sharedPreferences = getContext().getSharedPreferences(DocPat,Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                if(docCheckbox.isChecked()){
+                    editor.putString("isDoctor","Yes");
+                    editor.putString("isPatient","No");
+                    editor.commit();
+                }
+                if(patCheckbox.isChecked()){
+                    editor.putString("isPatient","Yes");
+                    editor.putString("isDoctor","No");
+                    editor.commit();
+                }
+                Toast.makeText(getContext(),"Signed in",Toast.LENGTH_SHORT).show();
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_auth_container,new loginFragment())
+                        .commit();
             }
 
             @Override
             public void onFailure(Call<Post> call, Throwable t) {
-                signupResult.setText(t.getMessage());
+                Toast.makeText(getContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
     }

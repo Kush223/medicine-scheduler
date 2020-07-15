@@ -1,5 +1,7 @@
 package android.example.medicinescheduerapp;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
@@ -45,6 +47,31 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        Menu nav_menu = navigationView.getMenu();
+
+
+        SharedPreferences logged = getApplicationContext().getSharedPreferences("login", Context.MODE_PRIVATE);
+        String isLogged = logged.getString("loggedIn","No");
+
+        SharedPreferences docpat = getApplicationContext().getSharedPreferences("docpat",Context.MODE_PRIVATE);
+        String isDoc = docpat.getString("isDoctor","No");
+        String isPat = docpat.getString("isPatient","No");
+
+        if(isLogged.equals("Yes")){
+            if(isDoc.equals("Yes")){
+                nav_menu.findItem(R.id.nav_doctor).setVisible(true);
+                nav_menu.findItem(R.id.nav_patient).setVisible(false);
+            }
+            if(isPat.equals("Yes")){
+                nav_menu.findItem(R.id.nav_patient).setVisible(true);
+                nav_menu.findItem(R.id.nav_doctor).setVisible(false);
+            }
+        }
+        else {
+            nav_menu.findItem(R.id.nav_doctor).setVisible(false);
+            nav_menu.findItem(R.id.nav_patient).setVisible(false);
+        }
     }
 
     @Override

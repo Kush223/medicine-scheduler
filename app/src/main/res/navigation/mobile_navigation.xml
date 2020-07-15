@@ -17,7 +17,17 @@
         android:label="Account"
         tools:layout="@layout/activity_login_signup"/>
 
+    <fragment
+        android:id="@+id/nav_doctor"
+        android:name="android.example.medicinescheduerapp.ui.doctor.doctorProfileFragment"
+        android:label="Doctor"
+        tools:layout="@layout/fragment_doctor_profile"/>
 
+    <fragment
+        android:id="@+id/nav_patient"
+        android:name="android.example.medicinescheduerapp.ui.patient.patientProfile"
+        tools:layout="@layout/fragment_patient_profile"
+        android:label="Patient"/>
 
     <fragment
         android:id="@+id/nav_gallery"

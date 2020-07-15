@@ -1,5 +1,9 @@
 package android.example.medicinescheduerapp.ui.login;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.example.medicinescheduerapp.MainActivity;
 import android.example.medicinescheduerapp.R;
 import android.example.medicinescheduerapp.ui.JsonPlaceholderApi;
 import android.example.medicinescheduerapp.ui.Post;
@@ -8,7 +12,9 @@ import android.text.InputType;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -16,12 +22,15 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.google.android.material.internal.NavigationMenu;
+import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -35,14 +44,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class loginFragment extends Fragment  {
 
-    private TextView loginResult;
     private EditText email;
     private EditText password;
     private CheckBox show_hide_password;
     private JsonPlaceholderApi jsonPlaceholderApi;
     private Button loginBtn;
     private TextView createaccount;
-
+    NavigationView navigationView;
 
 
     @Nullable
@@ -53,11 +61,10 @@ public class loginFragment extends Fragment  {
          show_hide_password = (CheckBox) root.findViewById(R.id.show_hide_password);
          email =(EditText) root.findViewById(R.id.login_emailid);
          password = (EditText) root.findViewById(R.id.login_password);
-         loginResult=(TextView) root.findViewById(R.id.loginResult);
          loginBtn=(Button) root.findViewById(R.id.loginBtn);
+         navigationView = root.findViewById(R.id.nav_view);
 
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-
 
         Gson gson = new GsonBuilder().serializeNulls().create();
 
@@ -82,15 +89,12 @@ public class loginFragment extends Fragment  {
                     @Override
                     public void onCheckedChanged(CompoundButton button,
                                                  boolean isChecked) {
-
                         // If it is checked then show password else hide
                         // password
                         if (isChecked) {
-
                             show_hide_password.setText(R.string.hide_pwd);// change
                             // checkbox
                             // text
-
                             password.setInputType(InputType.TYPE_CLASS_TEXT);
                             password.setTransformationMethod(HideReturnsTransformationMethod
                                     .getInstance());// show password
@@ -98,30 +102,25 @@ public class loginFragment extends Fragment  {
                             show_hide_password.setText(R.string.show_pwd);// change
                             // checkbox
                             // text
-
                             password.setInputType(InputType.TYPE_CLASS_TEXT
                                     | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                             password.setTransformationMethod(PasswordTransformationMethod
                                     .getInstance());// hide password
-
                         }
-
                     }
                 });
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(email.getText().toString().isEmpty() || password.getText().toString().isEmpty()){
-                    loginResult.setText("Email or password not entered");
+                    Toast.makeText(getContext(),"Email or password not entered",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 loginUser();
 
             }
         });
-
         return root;
-
     }
 
     @Override
@@ -151,17 +150,26 @@ public class loginFragment extends Fragment  {
             @Override
             public void onResponse(Call<Post> call, Response<Post> response) {
                 if(!response.isSuccessful()){
-                    loginResult.setText("User not logged in");
+                    Toast.makeText(getContext(),"User not logged in",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 Post postResponse = response.body();
-                loginResult.setText("Logged in");
+                Toast.makeText(getContext(),"Logged in",Toast.LENGTH_SHORT).show();
+
+                SharedPreferences logged = getContext().getSharedPreferences("login",Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = logged.edit();
+                editor.putString("loggedIn","Yes");
+                editor.commit();
+
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
             }
 
             @Override
             public void onFailure(Call<Post> call, Throwable t) {
-                loginResult.setText(t.getMessage());
+                Toast.makeText(getContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
     }
+
 }

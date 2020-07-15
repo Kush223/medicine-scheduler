@@ -8,7 +8,7 @@ android {
         targetCompatibility = "8"
         sourceCompatibility = "8"
     }
-    
+
     defaultConfig {
         applicationId "android.example.medicinescheduerapp"
         minSdkVersion 26
