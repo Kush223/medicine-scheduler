@@ -123,12 +123,12 @@ public class SignupFragment extends Fragment {
                 if(docCheckbox.isChecked()){
                     editor.putString("isDoctor","Yes");
                     editor.putString("isPatient","No");
-                    editor.commit();
+                    editor.apply();
                 }
                 if(patCheckbox.isChecked()){
                     editor.putString("isPatient","Yes");
                     editor.putString("isDoctor","No");
-                    editor.commit();
+                    editor.apply();
                 }
                 Toast.makeText(getContext(),"Signed in",Toast.LENGTH_SHORT).show();
                 getActivity().getSupportFragmentManager()

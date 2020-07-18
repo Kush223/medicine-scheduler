@@ -159,7 +159,7 @@ public class loginFragment extends Fragment  {
                 SharedPreferences logged = getContext().getSharedPreferences("login",Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = logged.edit();
                 editor.putString("loggedIn","Yes");
-                editor.commit();
+                editor.apply();
 
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);

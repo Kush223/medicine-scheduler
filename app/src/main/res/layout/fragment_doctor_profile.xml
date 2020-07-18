@@ -3,13 +3,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.doctor.doctorProfileFragment"
+    tools:context=".ui.profile.doctorProfileFragment"
+    android:background="@drawable/med_sched1"
     android:orientation="vertical">
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/search_p_edit"
+        android:hint="Search patient using name/email id"
+        android:layout_gravity="right"/>
+
+    <Button
+        android:layout_width="36dp"
+        android:layout_height="match_parent"
+        android:drawableRight="@drawable/ic_baseline_send_24"
+        android:id="@+id/search_patient"/>
+</LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Doctor Profile"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
         android:textSize="40sp"/>
         <LinearLayout
             android:layout_width="wrap_content"

@@ -1,8 +1,11 @@
 package android.example.medicinescheduerapp;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 
@@ -10,6 +13,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -62,10 +66,12 @@ public class MainActivity extends AppCompatActivity {
             if(isDoc.equals("Yes")){
                 nav_menu.findItem(R.id.nav_doctor).setVisible(true);
                 nav_menu.findItem(R.id.nav_patient).setVisible(false);
+                nav_menu.findItem(R.id.nav_account).setVisible(false);
             }
             if(isPat.equals("Yes")){
                 nav_menu.findItem(R.id.nav_patient).setVisible(true);
                 nav_menu.findItem(R.id.nav_doctor).setVisible(false);
+                nav_menu.findItem(R.id.nav_account).setVisible(false);
             }
         }
         else {
@@ -79,6 +85,21 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_logout :
+                SharedPreferences logged = getApplicationContext().getSharedPreferences("login", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = logged.edit();
+                editor.putString("loggedIn","No");
+                editor.apply();
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

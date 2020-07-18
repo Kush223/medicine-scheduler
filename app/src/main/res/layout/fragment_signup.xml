@@ -27,6 +27,7 @@
         android:gravity="center_vertical"
         android:hint="@string/fullName"
         android:inputType="textCapWords"
+        android:textStyle="bold"
         android:padding="10dp"
         android:singleLine="true"
         android:textSize="16sp" />
@@ -39,6 +40,7 @@
     <EditText
         android:id="@+id/userEmailId"
         android:layout_width="fill_parent"
+        android:textStyle="bold"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:background="@android:color/transparent"
@@ -61,6 +63,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:textStyle="bold"
         android:background="@android:color/transparent"
         android:drawableLeft="@drawable/ic_phone"
         android:drawablePadding="8dp"
@@ -81,6 +84,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:textStyle="bold"
         android:background="@android:color/transparent"
         android:drawableLeft="@drawable/ic_location"
         android:drawablePadding="8dp"
@@ -102,6 +106,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:background="@android:color/transparent"
+        android:textStyle="bold"
         android:drawableLeft="@drawable/pass"
         android:drawablePadding="8dp"
         android:gravity="center_vertical"
@@ -123,6 +128,7 @@
         android:layout_marginTop="5dp"
         android:background="@android:color/transparent"
         android:drawableLeft="@drawable/pass"
+        android:textStyle="bold"
         android:drawablePadding="8dp"
         android:gravity="center_vertical"
         android:hint="@string/confirmPassword"
@@ -145,6 +151,7 @@
         android:layout_marginTop="10dp"
         android:text="Doctor"
         android:textSize="16sp"
+        android:textStyle="bold"
         android:id="@+id/doctor_checkbox"
         android:layout_marginLeft="20dp"/>
 
@@ -152,6 +159,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:textStyle="bold"
         android:text="Patient"
         android:textSize="16sp"
         android:id="@+id/patient_checkbox"
@@ -187,6 +195,7 @@
         android:gravity="center"
         android:padding="10dp"
         android:text="@string/already_user"
+        android:textStyle="bold"
         android:textSize="15sp" />
 
 

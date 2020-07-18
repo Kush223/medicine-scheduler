@@ -13,10 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="android.example.medicinescheduerapp.ui.login.loginSignUpActivity"
+            android:name=".ui.login.loginSignUpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            tools:ignore="InnerclassSeparator"/>
+            tools:ignore="InnerclassSeparator"></activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
