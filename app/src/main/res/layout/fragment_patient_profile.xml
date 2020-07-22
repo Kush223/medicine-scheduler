@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/search_d_edit"
-            android:hint="Search doctor using field"
+            android:hint="Search doctor using email id"
             android:layout_gravity="right"/>
 
         <Button

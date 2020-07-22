@@ -12,9 +12,7 @@ import android.text.InputType;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
-import android.view.ActionMode;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -29,7 +27,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.google.android.material.internal.NavigationMenu;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -51,6 +48,8 @@ public class loginFragment extends Fragment  {
     private Button loginBtn;
     private TextView createaccount;
     NavigationView navigationView;
+    private CheckBox docCheckbox;
+    private CheckBox patCheckbox;
 
 
     @Nullable
@@ -63,6 +62,8 @@ public class loginFragment extends Fragment  {
          password = (EditText) root.findViewById(R.id.login_password);
          loginBtn=(Button) root.findViewById(R.id.loginBtn);
          navigationView = root.findViewById(R.id.nav_view);
+         docCheckbox = root.findViewById(R.id.doctor_checkbox1);
+         patCheckbox = root.findViewById(R.id.patient_checkbox1);
 
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 
@@ -116,8 +117,12 @@ public class loginFragment extends Fragment  {
                     Toast.makeText(getContext(),"Email or password not entered",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                loginUser();
-
+                if(docCheckbox.isChecked()){
+                    loginDoctor();
+                }
+                if(patCheckbox.isChecked()){
+                    loginPatient();
+                }
             }
         });
         return root;
@@ -138,14 +143,13 @@ public class loginFragment extends Fragment  {
                         .commit();
             }
         });
-
     }
 
-    private void loginUser(){
+    private void loginDoctor(){
         String emailEntered = email.getText().toString();
         String passwordEntered = password.getText().toString();
-        Post post = new Post(emailEntered,passwordEntered);
-        Call<Post> call = jsonPlaceholderApi.loginUser(post);
+        Post post = new Post(emailEntered,passwordEntered,null);
+        Call<Post> call = jsonPlaceholderApi.loginDoctor(post);
         call.enqueue(new Callback<Post>() {
             @Override
             public void onResponse(Call<Post> call, Response<Post> response) {
@@ -156,15 +160,59 @@ public class loginFragment extends Fragment  {
                 Post postResponse = response.body();
                 Toast.makeText(getContext(),"Logged in",Toast.LENGTH_SHORT).show();
 
+                SharedPreferences docpat = getContext().getSharedPreferences("docpat",Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor1 = docpat.edit();
+                editor1.putString("isDoctor","Yes");
+                editor1.putString("isPatient","No");
+                editor1.apply();
+
                 SharedPreferences logged = getContext().getSharedPreferences("login",Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = logged.edit();
                 editor.putString("loggedIn","Yes");
+                editor.putString("token",postResponse.getToken());
                 editor.apply();
 
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
             }
 
+            @Override
+            public void onFailure(Call<Post> call, Throwable t) {
+                Toast.makeText(getContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void loginPatient(){
+        String emailEntered = email.getText().toString();
+        String passwordEntered = password.getText().toString();
+        Post post = new Post(emailEntered,passwordEntered,null);
+        Call<Post> call = jsonPlaceholderApi.loginPatient(post);
+        call.enqueue(new Callback<Post>() {
+            @Override
+            public void onResponse(Call<Post> call, Response<Post> response) {
+                if(!response.isSuccessful()){
+                    Toast.makeText(getContext(),"User not logged in",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Post postResponse = response.body();
+                Toast.makeText(getContext(),"Logged in",Toast.LENGTH_SHORT).show();
+
+                SharedPreferences docpat = getContext().getSharedPreferences("docpat",Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor1 = docpat.edit();
+                editor1.putString("isPatient","Yes");
+                editor1.putString("isDoctor","No");
+                editor1.apply();
+
+                SharedPreferences logged = getContext().getSharedPreferences("login",Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = logged.edit();
+                editor.putString("loggedIn","Yes");
+                editor.putString("token",postResponse.getToken());
+                editor.apply();
+
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+            }
             @Override
             public void onFailure(Call<Post> call, Throwable t) {
                 Toast.makeText(getContext(),t.getMessage(),Toast.LENGTH_SHORT).show();

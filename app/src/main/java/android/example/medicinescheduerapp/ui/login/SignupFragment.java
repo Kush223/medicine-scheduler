@@ -26,6 +26,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,8 +35,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SignupFragment extends Fragment {
-
-    private String DocPat = "docpat";
 
     private Context context;
     private EditText userEmailId;
@@ -99,17 +98,21 @@ public class SignupFragment extends Fragment {
                     Toast.makeText(getContext(),"Email or password not entered",Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                signupUser();
+                if(docCheckbox.isChecked()){
+                    signupDoctor();
+                }
+                if(patCheckbox.isChecked()){
+                    signupPatient();
+                }
             }
         });
         return root;
     }
-    private void signupUser(){
+    private void signupDoctor(){
         String emailEntered = userEmailId.getText().toString();
         String passwordEntered= userPassword.getText().toString();
-        Post post = new Post(emailEntered,passwordEntered);
-        Call<Post> call = jsonPlaceholderApi.signupUser(post);
+        Post post = new Post(emailEntered,passwordEntered,null);
+        Call<Post> call = jsonPlaceholderApi.signupDoctor(post);
         call.enqueue(new Callback<Post>() {
             @Override
             public void onResponse(Call<Post> call, Response<Post> response) {
@@ -118,18 +121,34 @@ public class SignupFragment extends Fragment {
                     return;
                 }
                 Post postResponse = response.body();
-                SharedPreferences sharedPreferences = getContext().getSharedPreferences(DocPat,Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                if(docCheckbox.isChecked()){
-                    editor.putString("isDoctor","Yes");
-                    editor.putString("isPatient","No");
-                    editor.apply();
+
+                Toast.makeText(getContext(),"Signed in",Toast.LENGTH_SHORT).show();
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_auth_container,new loginFragment())
+                        .commit();
+            }
+
+            @Override
+            public void onFailure(Call<Post> call, Throwable t) {
+                Toast.makeText(getContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void signupPatient(){
+        String emailEntered = userEmailId.getText().toString();
+        String passwordEntered= userPassword.getText().toString();
+        Post post = new Post(emailEntered,passwordEntered,null);
+        Call<Post> call = jsonPlaceholderApi.signupPatient(post);
+        call.enqueue(new Callback<Post>() {
+            @Override
+            public void onResponse(Call<Post> call, Response<Post> response) {
+                if(!response.isSuccessful()){
+                    Toast.makeText(getContext(),"User not signed in",Toast.LENGTH_SHORT).show();
+                    return;
                 }
-                if(patCheckbox.isChecked()){
-                    editor.putString("isPatient","Yes");
-                    editor.putString("isDoctor","No");
-                    editor.apply();
-                }
+                Post postResponse = response.body();
+
                 Toast.makeText(getContext(),"Signed in",Toast.LENGTH_SHORT).show();
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
