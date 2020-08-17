@@ -1,4 +1,4 @@
-package android.example.medicinescheduerapp.ui;
+package android.example.medicinescheduerapp.ui.schedule;
 
 import android.os.Bundle;
 
@@ -10,12 +10,12 @@ import android.view.ViewGroup;
 import android.example.medicinescheduerapp.R;
 
 
-public class patientPrescribeFragment extends Fragment {
+public class scheduleMed extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        return inflater.inflate(R.layout.fragment_patient_prescribe, container, false);
+        View root = inflater.inflate(R.layout.fragment_schedule_med, container, false);
+        return root;
     }
 }

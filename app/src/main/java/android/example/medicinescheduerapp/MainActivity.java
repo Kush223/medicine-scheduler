@@ -55,12 +55,10 @@ public class MainActivity extends AppCompatActivity {
         Menu nav_menu = navigationView.getMenu();
 
 
-        SharedPreferences logged = getApplicationContext().getSharedPreferences("login", Context.MODE_PRIVATE);
-        String isLogged = logged.getString("loggedIn","No");
-
-        SharedPreferences docpat = getApplicationContext().getSharedPreferences("docpat",Context.MODE_PRIVATE);
-        String isDoc = docpat.getString("isDoctor","No");
-        String isPat = docpat.getString("isPatient","No");
+        SharedPreferences info = getApplicationContext().getSharedPreferences("info", Context.MODE_PRIVATE);
+        String isLogged = info.getString("loggedIn","No");
+        String isDoc = info.getString("isDoctor","No");
+        String isPat = info.getString("isPatient","No");
 
         if(isLogged.equals("Yes")){
             if(isDoc.equals("Yes")){
@@ -91,8 +89,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_logout :
-                SharedPreferences logged = getApplicationContext().getSharedPreferences("login", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = logged.edit();
+                SharedPreferences info = getApplicationContext().getSharedPreferences("info", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = info.edit();
                 editor.putString("loggedIn","No");
                 editor.apply();
                 Intent intent = getIntent();

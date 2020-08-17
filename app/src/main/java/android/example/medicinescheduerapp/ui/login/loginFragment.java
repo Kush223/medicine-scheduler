@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.example.medicinescheduerapp.MainActivity;
 import android.example.medicinescheduerapp.R;
-import android.example.medicinescheduerapp.ui.JsonPlaceholderApi;
-import android.example.medicinescheduerapp.ui.Post;
+import android.example.medicinescheduerapp.JsonPlaceholderApi;
+import android.example.medicinescheduerapp.Post;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.method.HideReturnsTransformationMethod;
@@ -113,8 +113,12 @@ public class loginFragment extends Fragment  {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(email.getText().toString().isEmpty() || password.getText().toString().isEmpty()){
-                    Toast.makeText(getContext(),"Email or password not entered",Toast.LENGTH_SHORT).show();
+                if(email.getText().toString().isEmpty()){
+                    email.setError("Email not entered");
+                    return;
+                }
+                if(password.getText().toString().isEmpty()){
+                    password.setError("Password not entered");
                     return;
                 }
                 if(docCheckbox.isChecked()){
@@ -148,7 +152,7 @@ public class loginFragment extends Fragment  {
     private void loginDoctor(){
         String emailEntered = email.getText().toString();
         String passwordEntered = password.getText().toString();
-        Post post = new Post(emailEntered,passwordEntered,null);
+        Post post = new Post(emailEntered,passwordEntered,null,null,null,null,null);
         Call<Post> call = jsonPlaceholderApi.loginDoctor(post);
         call.enqueue(new Callback<Post>() {
             @Override
@@ -160,14 +164,10 @@ public class loginFragment extends Fragment  {
                 Post postResponse = response.body();
                 Toast.makeText(getContext(),"Logged in",Toast.LENGTH_SHORT).show();
 
-                SharedPreferences docpat = getContext().getSharedPreferences("docpat",Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor1 = docpat.edit();
-                editor1.putString("isDoctor","Yes");
-                editor1.putString("isPatient","No");
-                editor1.apply();
-
-                SharedPreferences logged = getContext().getSharedPreferences("login",Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = logged.edit();
+                SharedPreferences info = getContext().getSharedPreferences("info",Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = info.edit();
+                editor.putString("isDoctor","Yes");
+                editor.putString("isPatient","No");
                 editor.putString("loggedIn","Yes");
                 editor.putString("token",postResponse.getToken());
                 editor.apply();
@@ -186,7 +186,7 @@ public class loginFragment extends Fragment  {
     private void loginPatient(){
         String emailEntered = email.getText().toString();
         String passwordEntered = password.getText().toString();
-        Post post = new Post(emailEntered,passwordEntered,null);
+        Post post = new Post(emailEntered,passwordEntered,null,null,null,null,null);
         Call<Post> call = jsonPlaceholderApi.loginPatient(post);
         call.enqueue(new Callback<Post>() {
             @Override
@@ -198,14 +198,10 @@ public class loginFragment extends Fragment  {
                 Post postResponse = response.body();
                 Toast.makeText(getContext(),"Logged in",Toast.LENGTH_SHORT).show();
 
-                SharedPreferences docpat = getContext().getSharedPreferences("docpat",Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor1 = docpat.edit();
-                editor1.putString("isPatient","Yes");
-                editor1.putString("isDoctor","No");
-                editor1.apply();
-
-                SharedPreferences logged = getContext().getSharedPreferences("login",Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = logged.edit();
+                SharedPreferences info = getContext().getSharedPreferences("info",Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = info.edit();
+                editor.putString("isPatient","Yes");
+                editor.putString("isDoctor","No");
                 editor.putString("loggedIn","Yes");
                 editor.putString("token",postResponse.getToken());
                 editor.apply();

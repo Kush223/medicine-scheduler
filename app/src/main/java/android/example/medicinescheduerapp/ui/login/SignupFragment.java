@@ -1,11 +1,10 @@
 package android.example.medicinescheduerapp.ui.login;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.example.medicinescheduerapp.R;
-import android.example.medicinescheduerapp.ui.JsonPlaceholderApi;
-import android.example.medicinescheduerapp.ui.Post;
+import android.example.medicinescheduerapp.JsonPlaceholderApi;
+import android.example.medicinescheduerapp.Post;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,13 +19,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,6 +40,11 @@ public class SignupFragment extends Fragment {
     private JsonPlaceholderApi jsonPlaceholderApi;
     private CheckBox docCheckbox;
     private CheckBox patCheckbox;
+    private EditText fullName;
+    private EditText mobileNo;
+    private EditText field;
+    private EditText address;
+    private EditText confirmPassword;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,9 +62,14 @@ public class SignupFragment extends Fragment {
         TextView alreadyUser =(TextView)root.findViewById(R.id.already_user);
         userEmailId = (EditText) root.findViewById(R.id.userEmailId);
         userPassword= (EditText) root.findViewById(R.id.password);
+        confirmPassword = (EditText) root.findViewById(R.id.confirmPassword);
         signupBtn = (Button) root.findViewById(R.id.signUpBtn);
         docCheckbox=(CheckBox) root.findViewById(R.id.doctor_checkbox);
         patCheckbox=(CheckBox) root.findViewById(R.id.patient_checkbox);
+        field=(EditText) root.findViewById(R.id.field);
+        mobileNo =(EditText) root.findViewById(R.id.mobileNumber);
+        address = (EditText) root.findViewById(R.id.address);
+        fullName = (EditText) root.findViewById(R.id.fullName);
 
         Gson gson = new GsonBuilder().serializeNulls().create();
 
@@ -94,12 +101,42 @@ public class SignupFragment extends Fragment {
         signupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(userEmailId.getText().toString().isEmpty() || userPassword.getText().toString().isEmpty()){
-                    Toast.makeText(getContext(),"Email or password not entered",Toast.LENGTH_SHORT).show();
+                if(userEmailId.getText().toString().isEmpty()){
+                    userEmailId.setError("Email not entered");
                     return;
                 }
+                if(userPassword.getText().toString().isEmpty()){
+                    userPassword.setError("Password not entered");
+                    return;
+                }
+                if(mobileNo.getText().toString().isEmpty()){
+                    mobileNo.setError("Mobile Number not entered");
+                    return;
+                }
+                if(address.getText().toString().isEmpty()){
+                    address.setError("Address not entered");
+                    return;
+                }
+                if(confirmPassword.getText().toString().isEmpty() || !confirmPassword.getText().toString().equals(userPassword.getText().toString())){
+                    confirmPassword.setError("Password doesn't match");
+                    return;
+                }
+                if(fullName.getText().toString().isEmpty()){
+                    fullName.setError("Name not entered");
+                    return;
+                }
+                if(!docCheckbox.isChecked() && !patCheckbox.isChecked()){
+                    Toast.makeText(context,"Select doctor or patient",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 if(docCheckbox.isChecked()){
-                    signupDoctor();
+                    if(field.getText().toString().isEmpty()){
+                        field.setError("Enter field");
+                    }
+                    else {
+                        signupDoctor();
+                    }
                 }
                 if(patCheckbox.isChecked()){
                     signupPatient();
@@ -111,7 +148,11 @@ public class SignupFragment extends Fragment {
     private void signupDoctor(){
         String emailEntered = userEmailId.getText().toString();
         String passwordEntered= userPassword.getText().toString();
-        Post post = new Post(emailEntered,passwordEntered,null);
+        String phoneEntered = mobileNo.getText().toString();
+        String nameEntered = fullName.getText().toString();
+        String fieldEntered = field.getText().toString();
+        String addressEntered = address.getText().toString();
+        Post post = new Post(emailEntered,passwordEntered,null,nameEntered,phoneEntered,addressEntered,fieldEntered);
         Call<Post> call = jsonPlaceholderApi.signupDoctor(post);
         call.enqueue(new Callback<Post>() {
             @Override
@@ -121,6 +162,14 @@ public class SignupFragment extends Fragment {
                     return;
                 }
                 Post postResponse = response.body();
+                SharedPreferences info = getContext().getSharedPreferences("info",Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = info.edit();
+                editor.putString("email",postResponse.getEmail());
+                editor.putString("name",postResponse.getName());
+                editor.putString("phone",postResponse.getPhone());
+                editor.putString("field",postResponse.getField());
+                editor.putString("address",postResponse.getAddress());
+                editor.apply();
 
                 Toast.makeText(getContext(),"Signed in",Toast.LENGTH_SHORT).show();
                 getActivity().getSupportFragmentManager()
@@ -138,7 +187,9 @@ public class SignupFragment extends Fragment {
     private void signupPatient(){
         String emailEntered = userEmailId.getText().toString();
         String passwordEntered= userPassword.getText().toString();
-        Post post = new Post(emailEntered,passwordEntered,null);
+        String phoneEntered = mobileNo.getText().toString();
+        String nameEntered = fullName.getText().toString();
+        Post post = new Post(emailEntered,passwordEntered,null,nameEntered,phoneEntered,null,null);
         Call<Post> call = jsonPlaceholderApi.signupPatient(post);
         call.enqueue(new Callback<Post>() {
             @Override
@@ -148,6 +199,12 @@ public class SignupFragment extends Fragment {
                     return;
                 }
                 Post postResponse = response.body();
+                SharedPreferences info = getContext().getSharedPreferences("info",Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = info.edit();
+                editor.putString("email",postResponse.getEmail());
+                editor.putString("name",postResponse.getName());
+                editor.putString("phone",postResponse.getPhone());
+                editor.apply();
 
                 Toast.makeText(getContext(),"Signed in",Toast.LENGTH_SHORT).show();
                 getActivity().getSupportFragmentManager()
