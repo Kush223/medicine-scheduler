@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 
 public class patientPrescribeFragment extends Fragment {
-    FloatingActionButton addPrescription;
+    Button addPrescription;
     private ArrayList<Prescription> listItem;
 
     @Override

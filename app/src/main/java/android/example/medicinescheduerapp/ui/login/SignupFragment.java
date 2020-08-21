@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.example.medicinescheduerapp.R;
 import android.example.medicinescheduerapp.JsonPlaceholderApi;
 import android.example.medicinescheduerapp.Post;
+import android.example.medicinescheduerapp.ui.LoadDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,6 +46,7 @@ public class SignupFragment extends Fragment {
     private EditText field;
     private EditText address;
     private EditText confirmPassword;
+    private LoadDialog loadDialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,6 +72,8 @@ public class SignupFragment extends Fragment {
         mobileNo =(EditText) root.findViewById(R.id.mobileNumber);
         address = (EditText) root.findViewById(R.id.address);
         fullName = (EditText) root.findViewById(R.id.fullName);
+
+        loadDialog =new LoadDialog(getActivity());
 
         Gson gson = new GsonBuilder().serializeNulls().create();
 
@@ -135,10 +139,12 @@ public class SignupFragment extends Fragment {
                         field.setError("Enter field");
                     }
                     else {
+                        loadDialog.startLoad();
                         signupDoctor();
                     }
                 }
                 if(patCheckbox.isChecked()){
+                    loadDialog.startLoad();
                     signupPatient();
                 }
             }
@@ -161,6 +167,7 @@ public class SignupFragment extends Fragment {
                     Toast.makeText(getContext(),"User not signed in",Toast.LENGTH_SHORT).show();
                     return;
                 }
+                loadDialog.dismissLoad();
                 Post postResponse = response.body();
                 SharedPreferences info = getContext().getSharedPreferences("info",Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = info.edit();
@@ -198,6 +205,7 @@ public class SignupFragment extends Fragment {
                     Toast.makeText(getContext(),"User not signed in",Toast.LENGTH_SHORT).show();
                     return;
                 }
+                loadDialog.dismissLoad();
                 Post postResponse = response.body();
                 SharedPreferences info = getContext().getSharedPreferences("info",Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = info.edit();

@@ -7,6 +7,7 @@ import android.example.medicinescheduerapp.MainActivity;
 import android.example.medicinescheduerapp.R;
 import android.example.medicinescheduerapp.JsonPlaceholderApi;
 import android.example.medicinescheduerapp.Post;
+import android.example.medicinescheduerapp.ui.LoadDialog;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.method.HideReturnsTransformationMethod;
@@ -50,6 +51,7 @@ public class loginFragment extends Fragment  {
     NavigationView navigationView;
     private CheckBox docCheckbox;
     private CheckBox patCheckbox;
+    private LoadDialog loadDialog;
 
 
     @Nullable
@@ -62,8 +64,10 @@ public class loginFragment extends Fragment  {
          password = (EditText) root.findViewById(R.id.login_password);
          loginBtn=(Button) root.findViewById(R.id.loginBtn);
          navigationView = root.findViewById(R.id.nav_view);
-         docCheckbox = root.findViewById(R.id.doctor_checkbox1);
-         patCheckbox = root.findViewById(R.id.patient_checkbox1);
+         docCheckbox = (CheckBox) root.findViewById(R.id.doctor_checkbox1);
+         patCheckbox = (CheckBox) root.findViewById(R.id.patient_checkbox1);
+
+        loadDialog=new LoadDialog(getActivity());
 
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 
@@ -83,6 +87,7 @@ public class loginFragment extends Fragment  {
                 .build();
 
         jsonPlaceholderApi = retrofit.create(JsonPlaceholderApi.class);
+
 
         show_hide_password
                 .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -110,6 +115,23 @@ public class loginFragment extends Fragment  {
                         }
                     }
                 });
+
+
+        docCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked && patCheckbox.isChecked())
+                    patCheckbox.toggle();
+            }
+        });
+
+        patCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked && docCheckbox.isChecked())
+                    docCheckbox.toggle();
+            }
+        });
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,10 +144,15 @@ public class loginFragment extends Fragment  {
                     return;
                 }
                 if(docCheckbox.isChecked()){
+                    loadDialog.startLoad();
                     loginDoctor();
-                }
-                if(patCheckbox.isChecked()){
+                }else if(patCheckbox.isChecked()){
+                    loadDialog.startLoad();
                     loginPatient();
+
+                }else {
+                    Toast.makeText(getActivity(),"Please select doctor or patient",Toast.LENGTH_SHORT).show();
+                    return;
                 }
             }
         });
@@ -135,6 +162,7 @@ public class loginFragment extends Fragment  {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
 
         createaccount =(TextView)view.findViewById(R.id.createAccount);
         createaccount.setOnClickListener(view1 -> {
@@ -161,6 +189,7 @@ public class loginFragment extends Fragment  {
                     Toast.makeText(getContext(),"User not logged in",Toast.LENGTH_SHORT).show();
                     return;
                 }
+                loadDialog.dismissLoad();
                 Post postResponse = response.body();
                 Toast.makeText(getContext(),"Logged in",Toast.LENGTH_SHORT).show();
 
@@ -178,6 +207,7 @@ public class loginFragment extends Fragment  {
 
             @Override
             public void onFailure(Call<Post> call, Throwable t) {
+                loadDialog.dismissLoad();
                 Toast.makeText(getContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
@@ -195,6 +225,7 @@ public class loginFragment extends Fragment  {
                     Toast.makeText(getContext(),"User not logged in",Toast.LENGTH_SHORT).show();
                     return;
                 }
+                loadDialog.dismissLoad();
                 Post postResponse = response.body();
                 Toast.makeText(getContext(),"Logged in",Toast.LENGTH_SHORT).show();
 
@@ -211,6 +242,7 @@ public class loginFragment extends Fragment  {
             }
             @Override
             public void onFailure(Call<Post> call, Throwable t) {
+                loadDialog.dismissLoad();
                 Toast.makeText(getContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });

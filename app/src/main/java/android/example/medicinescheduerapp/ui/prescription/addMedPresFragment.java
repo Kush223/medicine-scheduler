@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.example.medicinescheduerapp.R;
+import android.widget.Button;
 import android.widget.EditText;
 
 import java.util.ArrayList;
@@ -36,6 +37,17 @@ public class addMedPresFragment extends Fragment {
         medicine_description = root.findViewById(R.id.medicine_description);
         medicine_dosage = root.findViewById(R.id.medicine_dosage);
         medicine_duration = root.findViewById(R.id.medicine_duration);
+
+        Button backButton = root.findViewById(R.id.backpress);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_auth_container_1,new prescriptionFragment())
+                        .commit();
+            }
+        });
 
         return root;
     }

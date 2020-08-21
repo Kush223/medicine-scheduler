@@ -37,7 +37,12 @@
         android:textSize="20sp"
         android:inputType="textMultiLine" />
 
-
-
+    <Button
+        android:id="@+id/backpress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="back"
+        android:layout_marginTop="20dp"
+        android:foregroundGravity="bottom"/>
 
 </LinearLayout>

@@ -15,12 +15,14 @@
         android:layout_height="wrap_content"
         android:id="@+id/search_p_edit"
         android:hint="Search patient using email id"
+        android:inputType="text"
+        android:maxLines="1"
         android:layout_gravity="right"/>
 
     <Button
-        android:layout_width="36dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:drawableRight="@drawable/ic_baseline_send_24"
+        android:text="Search Patient"
         android:id="@+id/search_patient"/>
 </LinearLayout>
 
