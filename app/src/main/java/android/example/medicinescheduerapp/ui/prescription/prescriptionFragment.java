@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.example.medicinescheduerapp.R;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -46,7 +47,7 @@ public class prescriptionFragment extends Fragment {
         patSymptoms= root.findViewById(R.id.pres_symptoms);
         patWeight= root.findViewById(R.id.pres_weight);
 
-        FloatingActionButton add_med = root.findViewById(R.id.add_med);
+        Button add_med = root.findViewById(R.id.add_med);
         add_med.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,6 +55,17 @@ public class prescriptionFragment extends Fragment {
                         .beginTransaction()
                         .replace(R.id.fragment_auth_container_1,new addMedPresFragment())
                         .commit();
+            }
+        });
+        Button backpress =root.findViewById(R.id.backbutton);
+        backpress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_auth_container_1,new patientPrescribeFragment())
+                        .commit();
+
             }
         });
 
