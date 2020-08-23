@@ -1,12 +1,21 @@
 package android.example.medicinescheduerapp;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Post {
+    @SerializedName("email")
     private String email;
+    @SerializedName("password")
     private String password;
+    @SerializedName("token")
     private String token;
+    @SerializedName("name")
     private String name;
+    @SerializedName("address")
     private String address;
+    @SerializedName("field")
     private String field;
+    @SerializedName("phone")
     private String phone;
 
     public String getEmail() {

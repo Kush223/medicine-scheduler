@@ -1,5 +1,6 @@
 package android.example.medicinescheduerapp;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +10,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -26,6 +29,7 @@ import androidx.appcompat.widget.Toolbar;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    public static TextView header;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +47,11 @@ public class MainActivity extends AppCompatActivity {
 //        });
 
 
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        header =(TextView)headerView.findViewById(R.id.textView);
+        header.setText("Logged Out");
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -69,11 +75,13 @@ public class MainActivity extends AppCompatActivity {
                 nav_menu.findItem(R.id.nav_doctor).setVisible(true);
                 nav_menu.findItem(R.id.nav_patient).setVisible(false);
                 nav_menu.findItem(R.id.nav_account).setVisible(false);
+                header.setText("Logged In");
             }
             if(isPat.equals("Yes")){
                 nav_menu.findItem(R.id.nav_patient).setVisible(true);
                 nav_menu.findItem(R.id.nav_doctor).setVisible(false);
                 nav_menu.findItem(R.id.nav_account).setVisible(false);
+                header.setText("Logged In");
             }
         }
         else {
@@ -89,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
