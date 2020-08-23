@@ -1,6 +1,7 @@
 package android.example.medicinescheduerapp;
 
 import android.example.medicinescheduerapp.Post;
+import android.example.medicinescheduerapp.ui.prescription.SearchResponse;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public interface JsonPlaceholderApi {
 
     @Headers({"Content-Type:application/json; charset=UTF-8","Accept:application/json"})
     @POST("doctors/patient/find")
-    Call<Post> findPatient(@Header("Authorization") String header,@Body Post post);
+    Call<SearchResponse> findPatient(@Header("Authorization") String header, @Body Post post);
 
     @Headers({"Content-Type:application/json; charset=UTF-8","Accept:application/json"})
     @POST("patients/doctor/find")

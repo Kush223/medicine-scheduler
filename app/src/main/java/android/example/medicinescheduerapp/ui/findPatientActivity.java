@@ -15,8 +15,10 @@ public class findPatientActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_patient);
+
+        Bundle bn =getIntent().getExtras();
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_auth_container_1,new patientPrescribeFragment())
+                .add(R.id.fragment_auth_container_1,new patientPrescribeFragment(bn))
                 .commit();
     }
 }

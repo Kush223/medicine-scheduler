@@ -40,6 +40,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static android.example.medicinescheduerapp.MainActivity.header;
+
 public class loginFragment extends Fragment  {
 
     private EditText email;
@@ -52,6 +54,7 @@ public class loginFragment extends Fragment  {
     private CheckBox docCheckbox;
     private CheckBox patCheckbox;
     private LoadDialog loadDialog;
+    private TextView text=header;
 
 
     @Nullable
@@ -66,6 +69,7 @@ public class loginFragment extends Fragment  {
          navigationView = root.findViewById(R.id.nav_view);
          docCheckbox = (CheckBox) root.findViewById(R.id.doctor_checkbox1);
          patCheckbox = (CheckBox) root.findViewById(R.id.patient_checkbox1);
+
 
         loadDialog=new LoadDialog(getActivity());
 
@@ -178,6 +182,7 @@ public class loginFragment extends Fragment  {
     }
 
     private void loginDoctor(){
+
         String emailEntered = email.getText().toString();
         String passwordEntered = password.getText().toString();
         Post post = new Post(emailEntered,passwordEntered,null,null,null,null,null);
@@ -192,7 +197,6 @@ public class loginFragment extends Fragment  {
                 loadDialog.dismissLoad();
                 Post postResponse = response.body();
                 Toast.makeText(getContext(),"Logged in",Toast.LENGTH_SHORT).show();
-
                 SharedPreferences info = getContext().getSharedPreferences("info",Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = info.edit();
                 editor.putString("isDoctor","Yes");
@@ -200,7 +204,7 @@ public class loginFragment extends Fragment  {
                 editor.putString("loggedIn","Yes");
                 editor.putString("token",postResponse.getToken());
                 editor.apply();
-
+                Log.d("BC","mess"+postResponse.getToken());
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
             }
@@ -228,7 +232,6 @@ public class loginFragment extends Fragment  {
                 loadDialog.dismissLoad();
                 Post postResponse = response.body();
                 Toast.makeText(getContext(),"Logged in",Toast.LENGTH_SHORT).show();
-
                 SharedPreferences info = getContext().getSharedPreferences("info",Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = info.edit();
                 editor.putString("isPatient","Yes");
