@@ -39,6 +39,7 @@ public class prescriptionFragment extends Fragment {
     private EditText patSymptoms;
     private ArrayList<Prescription> mlistItem;
     private JsonPlaceholderApi jsonPlaceholderApi;
+    private Bundle bundle;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,9 +62,10 @@ public class prescriptionFragment extends Fragment {
         backpress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                bundle=patientPrescribeFragment.getBundle();
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_auth_container_1,new patientPrescribeFragment(null))
+                        .replace(R.id.fragment_auth_container_1,new patientPrescribeFragment(bundle))
                         .commit();
 
             }
