@@ -1,9 +1,12 @@
 package android.example.medicinescheduerapp.ui.home;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.example.medicinescheduerapp.MainActivity;
 import android.example.medicinescheduerapp.ui.login.SignupFragment;
 import android.example.medicinescheduerapp.ui.login.loginFragment;
+import android.example.medicinescheduerapp.ui.login.loginSignUpActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +21,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.example.medicinescheduerapp.R;
+import android.widget.Toast;
 
 public class HomeFragment extends Fragment {
 
@@ -40,7 +44,15 @@ public class HomeFragment extends Fragment {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                SharedPreferences info = getContext().getSharedPreferences("info", Context.MODE_PRIVATE);
+                String islogged = info.getString("loggedIn",null);
+                if(islogged.equals("Yes")){
+                    Toast.makeText(getContext(),"Already logged in",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Intent intent = new Intent(getActivity(), loginSignUpActivity.class);
+                    startActivity(intent);
+                }
             }
         });
         return root;
