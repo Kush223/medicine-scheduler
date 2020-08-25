@@ -16,6 +16,5 @@ public class loginSignUpActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_auth_container,new loginFragment())
                 .commit();
-
     }
 }
