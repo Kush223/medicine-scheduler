@@ -27,15 +27,23 @@ import java.util.ArrayList;
 
 
 public class patientPrescribeFragment extends Fragment {
+
     FloatingActionButton addPrescription;
+
+    private static Bundle bundle;
+    Button AaddPrescription;
+
     private TextView Name;
     private TextView email;
     private TextView phone;
-    private Bundle bundle;
     private ArrayList<Prescription> listItem;
 
     public patientPrescribeFragment(Bundle bn) {
         this.bundle=bn;
+    }
+
+    public static Bundle getBundle(){
+        return bundle;
     }
 
     @Override

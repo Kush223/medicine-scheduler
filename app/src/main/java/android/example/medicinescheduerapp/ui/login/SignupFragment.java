@@ -129,7 +129,7 @@ public class SignupFragment extends Fragment {
                     fullName.setError("Name not entered");
                     return;
                 }
-                if(!docCheckbox.isChecked() && !patCheckbox.isChecked()){
+                if(!docCheckbox.isChecked() && !patCheckbox.isChecked() || docCheckbox.isChecked() && patCheckbox.isChecked()){
                     Toast.makeText(context,"Select doctor or patient",Toast.LENGTH_SHORT).show();
                     return;
                 }

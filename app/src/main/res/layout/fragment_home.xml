@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorAccent"
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
 
+    tools:context=".ui.home.HomeFragment">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Welcome to (app name)"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="30sp"
         android:gravity="center"
         android:layout_margin="10dp"/>
@@ -18,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_margin="10dp">
+        android:layout_margin="5dp">
 
         <TextView
             android:layout_width="0dp"
@@ -26,7 +29,7 @@
             android:layout_height="wrap_content"
             android:text="Here you can easily interact with your doctors/patients through our chat box, flexibilty in providing scheduling options and accessible prescriptions for you need."
             android:textSize="20sp"
-
+            android:textColor="#651FFF"
             />
 
         <ImageView
@@ -39,15 +42,18 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="118dp"
-        android:orientation="horizontal"
-        android:layout_margin="10dp">
+        android:layout_height="84dp"
+        android:layout_margin="5dp"
+        android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Schedule your medicines"
             android:textSize="20sp"
-            android:text="Schedule your medicine with ease"
-            android:layout_gravity="center"/>
+            android:textColor="#004D40"
+            android:textStyle="italic"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -59,48 +65,61 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="AND ..."
-        android:textSize="30sp"
-        android:gravity="center"/>
+        android:textSize="20sp"
+        android:gravity="center"
+        android:textColor="#004D40"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="118dp"
-        android:layout_margin="10dp">
+        android:layout_margin="5dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:text="Utilise prescriptions"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:textColor="#004D40"
+            android:textStyle="italic"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@drawable/pres_homepic" />
     </LinearLayout>
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textSize="20sp"
-    android:text="To obtain the best experience possible!"
-    android:gravity="center"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:textSize="20sp"
+        android:text="Click to login"
+        android:layout_margin="5dp"
+        android:id="@+id/home_to_login"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="Obtain the best experience possible!"
+        android:gravity="center"
+        android:textColor="#651FFF"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:layout_margin="10dp">
+        android:layout_margin="5dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Contact No: 342497342"
             android:layout_gravity="bottom"
-            android:textSize="20sp"/>
+            android:textSize="15sp"
+            android:textColor="#004D40"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Email Id: jkhd@gmail.com"
             android:layout_gravity="bottom"
-            android:textSize="20sp"/>
+            android:textSize="15sp"
+            android:textColor="#004D40"/>
     </LinearLayout>
-
-
 </LinearLayout>
