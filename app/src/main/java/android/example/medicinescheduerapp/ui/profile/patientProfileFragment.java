@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.example.medicinescheduerapp.JsonPlaceholderApi;
 import android.example.medicinescheduerapp.Post;
-import android.example.medicinescheduerapp.ui.schedule.scheduleMed;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
