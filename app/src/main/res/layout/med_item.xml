@@ -1,47 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="8dp"
-    android:layout_marginStart="8dp"
-    android:layout_marginTop="8dp"
-    tools:context=".ui.schedule.scheduleMed">
+    android:layout_margin="10dp">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="8dp">
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Name"
             android:id="@+id/pres_med_name"
-            android:layout_alignParentStart="true"
-            android:textSize="30dp"
-            android:maxLines="1"/>
-        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:maxLines="1"
+            android:text="Name"
+            android:textSize="30dp"/>
+        <TextView
             android:id="@+id/pres_med_days"
-            android:textSize="20dp"
-            android:text="Days"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/pres_med_name"
+            android:text="Days"
+            android:textSize="20dp"
             />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/pres_med_dosage"
-            android:text="Dosage"
-            android:layout_below="@+id/pres_med_days"
-            android:textSize="20dp"/>
-        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Extra info"
-            android:id="@+id/pres_med_extra"
-            android:textSize="20dp"
-            android:layout_below="@+id/pres_med_dosage"/>
+            android:layout_below="@+id/pres_med_days"
+            android:text="Dosage"
+            android:textSize="20dp"/>
+
 
     </RelativeLayout>
 

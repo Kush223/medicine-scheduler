@@ -77,12 +77,6 @@ public class patientPrescribeFragment extends Fragment {
             }
         });
 
-//        RecyclerView recyclerView = root.findViewById(R.id.recycler_view_patient_prescribe);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//        recyclerView.setHasFixedSize(true);
-//
-//        final patientPrescribeAdapter adapter = new patientPrescribeAdapter();
-//        recyclerView.setAdapter(adapter);
 
         return root;
     }
