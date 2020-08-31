@@ -24,7 +24,6 @@ import java.util.ArrayList;
 
 public class addMedPresFragment extends Fragment {
     private EditText medicine_name;
-    private EditText medicine_description;
     private EditText medicine_duration;
     private EditText medicine_dosage;
 
@@ -34,7 +33,6 @@ public class addMedPresFragment extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_add_medicine, container, false);
         medicine_name= root.findViewById(R.id.medicine_name);
-        medicine_description = root.findViewById(R.id.medicine_description);
         medicine_dosage = root.findViewById(R.id.medicine_dosage);
         medicine_duration = root.findViewById(R.id.medicine_duration);
 
@@ -75,7 +73,6 @@ public class addMedPresFragment extends Fragment {
     }
     private void addMed(){
         String medName = medicine_name.getText().toString();
-        String medDes = medicine_description.getText().toString();
         String medDur = medicine_duration.getText().toString();
         String medDos = medicine_dosage.getText().toString();
 

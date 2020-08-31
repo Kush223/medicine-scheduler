@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.example.medicinescheduerapp.R;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -27,6 +28,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -37,7 +39,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class prescriptionFragment extends Fragment {
     private EditText patWeight;
     private EditText patSymptoms;
-    private ArrayList<Prescription> mlistItem;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+    private List<Prescription> mlistItem;
     private JsonPlaceholderApi jsonPlaceholderApi;
     private Bundle bundle;
 
@@ -77,14 +81,17 @@ public class prescriptionFragment extends Fragment {
         String medDur= info.getString("medDur",null);
         String medDos = info.getString("medDos",null);
 
-        mlistItem = new ArrayList<>();
-        mlistItem.add(new Prescription(pat_email,medName,medDur,medDos,null,null,null));
-
-        RecyclerView recyclerView = root.findViewById(R.id.recycler_view_prescription);
+        recyclerView = root.findViewById(R.id.recycler_view_prescription);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
 
-        final prescriptionAdapter adapter = new prescriptionAdapter(mlistItem);
+        mlistItem = new ArrayList<>();
+        mlistItem.add(new Prescription("P-650","monday","2 times a day"));
+        mlistItem.add(new Prescription("Supradynm","tuesday","1 time before sleep"));
+        mlistItem.add(new Prescription("P-650","monday","2 times a day"));
+        mlistItem.add(new Prescription("Supradynm","tuesday","1 time before sleep"));
+
+        adapter = new PrescriptionAdapter(mlistItem,getActivity());
         recyclerView.setAdapter(adapter);
         return root;
     }
@@ -94,6 +101,7 @@ public class prescriptionFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
+
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {

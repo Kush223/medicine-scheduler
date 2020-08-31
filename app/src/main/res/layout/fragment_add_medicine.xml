@@ -14,13 +14,7 @@
         android:hint="Medicine name"
         android:textSize="20sp"
         android:inputType="text"/>
-    <EditText
-        android:id="@+id/medicine_description"
-        android:layout_width="match_parent"
-        android:textSize="20sp"
-        android:layout_height="wrap_content"
-        android:hint="Description"
-        android:inputType="text"/>
+
     <EditText
         android:id="@+id/medicine_duration"
         android:layout_width="match_parent"
@@ -44,5 +38,12 @@
         android:text="back"
         android:layout_marginTop="20dp"
         android:foregroundGravity="bottom"/>
+
+    <Button
+        android:id="@+id/save_med"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="save"
+        android:layout_marginTop="10dp"/>
 
 </LinearLayout>
