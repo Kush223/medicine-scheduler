@@ -45,12 +45,14 @@ public class prescriptionFragment extends Fragment {
     private JsonPlaceholderApi jsonPlaceholderApi;
     private Bundle bundle;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_prescription, container, false);
         patSymptoms= root.findViewById(R.id.pres_symptoms);
         patWeight= root.findViewById(R.id.pres_weight);
+
 
         Button add_med = root.findViewById(R.id.add_med);
         add_med.setOnClickListener(new View.OnClickListener() {
@@ -75,21 +77,18 @@ public class prescriptionFragment extends Fragment {
             }
         });
 
-        SharedPreferences info = getContext().getSharedPreferences("info", Context.MODE_PRIVATE);
-        String pat_email = info.getString("patientEmail",null);
-        String medName = info.getString("medName",null);
-        String medDur= info.getString("medDur",null);
-        String medDos = info.getString("medDos",null);
-
         recyclerView = root.findViewById(R.id.recycler_view_prescription);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
 
         mlistItem = new ArrayList<>();
-        mlistItem.add(new Prescription("P-650","monday","2 times a day"));
-        mlistItem.add(new Prescription("Supradynm","tuesday","1 time before sleep"));
-        mlistItem.add(new Prescription("P-650","monday","2 times a day"));
-        mlistItem.add(new Prescription("Supradynm","tuesday","1 time before sleep"));
+        String medname = getArguments().getString("medname");
+        String meddur = getArguments().getString("meddur");
+        String meddos = getArguments().getString("meddos");
+        if(medname!=null|| meddur!=null|| meddos!=null){
+            mlistItem.add(new Prescription(medname,meddur,meddos));
+        }
+
 
         adapter = new PrescriptionAdapter(mlistItem,getActivity());
         recyclerView.setAdapter(adapter);

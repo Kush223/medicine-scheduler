@@ -28,6 +28,7 @@ public class addMedPresFragment extends Fragment {
     private EditText medicine_dosage;
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -76,16 +77,17 @@ public class addMedPresFragment extends Fragment {
         String medDur = medicine_duration.getText().toString();
         String medDos = medicine_dosage.getText().toString();
 
-        SharedPreferences info = getContext().getSharedPreferences("info",Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = info.edit();
-        editor.putString("medName",medName);
-        editor.putString("medDur",medDur);
-        editor.putString("medDos",medDos);
-        editor.apply();
+        Bundle args = new Bundle();
+        args.putString("medname",medName);
+        args.putString("meddur",medDur);
+        args.putString("meddos",medDos);
+
+        prescriptionFragment pres = new prescriptionFragment();
+        pres.setArguments(args);
 
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragment_auth_container_1,new prescriptionFragment())
+                .add(R.id.fragment_auth_container_1,new prescriptionFragment())
                 .commit();
 
     }
