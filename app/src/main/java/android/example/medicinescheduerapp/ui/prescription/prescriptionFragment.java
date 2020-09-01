@@ -86,11 +86,15 @@ public class prescriptionFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
 
         mlistItem = new ArrayList<>();
-        mlistItem.add(new Prescription("P-650","monday","2 times a day"));
-        mlistItem.add(new Prescription("Supradynm","tuesday","1 time before sleep"));
-        mlistItem.add(new Prescription("P-650","monday","2 times a day"));
-        mlistItem.add(new Prescription("Supradynm","tuesday","1 time before sleep"));
-
+        if(this.getArguments()!=null){
+            String medname = this.getArguments().getString("medname");
+            String meddur = this.getArguments().getString("meddur");
+            String meddos = this.getArguments().getString("meddos");
+            if(medname!=null|| meddur!=null|| meddos!=null){
+                mlistItem.add(new Prescription(medname,meddur,meddos));
+            }
+        }
+        
         adapter = new PrescriptionAdapter(mlistItem,getActivity());
         recyclerView.setAdapter(adapter);
         return root;
