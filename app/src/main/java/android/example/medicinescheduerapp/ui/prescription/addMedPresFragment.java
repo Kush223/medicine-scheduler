@@ -21,7 +21,11 @@ public class addMedPresFragment extends Fragment {
     private EditText medicine_name;
     private EditText medicine_duration;
     private EditText medicine_dosage;
+    private Bundle bundle;
 
+    public addMedPresFragment(Bundle bundle) {
+       this.bundle =bundle;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,7 +41,7 @@ public class addMedPresFragment extends Fragment {
             public void onClick(View v) {
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_auth_container_1,new prescriptionFragment())
+                        .replace(R.id.fragment_auth_container_1,new prescriptionFragment(bundle))
                         .commit();
             }
         });
@@ -83,7 +87,7 @@ public class addMedPresFragment extends Fragment {
         args.putString("meddur",medDur);
         args.putString("meddos",medDos);
 
-        prescriptionFragment pres = new prescriptionFragment();
+        prescriptionFragment pres = new prescriptionFragment(bundle);
         pres.setArguments(args);
 
         getActivity().getSupportFragmentManager()

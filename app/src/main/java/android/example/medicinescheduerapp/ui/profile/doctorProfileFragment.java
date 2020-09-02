@@ -28,8 +28,10 @@ import com.google.gson.GsonBuilder;
 
 import org.json.JSONArray;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -87,6 +89,7 @@ public class doctorProfileFragment extends Fragment {
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
+                .callTimeout(5, TimeUnit.SECONDS)
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
