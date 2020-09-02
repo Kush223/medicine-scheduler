@@ -36,6 +36,7 @@ import static android.example.medicinescheduerapp.ui.findPatientActivity.mlistIt
 public class prescriptionFragment extends Fragment {
     private EditText patWeight;
     private EditText patSymptoms;
+    private EditText patDate;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private JsonPlaceholderApi jsonPlaceholderApi;
@@ -48,7 +49,7 @@ public class prescriptionFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_prescription, container, false);
         patSymptoms= root.findViewById(R.id.pres_symptoms);
         patWeight= root.findViewById(R.id.pres_weight);
-
+        patDate =root.findViewById(R.id.pres_date);
 
         FloatingActionButton add_med = root.findViewById(R.id.add_med);
         add_med.setOnClickListener(new View.OnClickListener() {
@@ -141,8 +142,9 @@ public class prescriptionFragment extends Fragment {
 
         String pat_symptoms = patSymptoms.getText().toString();
         int pat_weight = Integer.parseInt(patWeight.getText().toString());
+        String pat_date =patDate.getText().toString();
 
-
+//        Log.d("Tag","mess  "+pat_symptoms+" "+ pat_date);
     }
 
 }
