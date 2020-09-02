@@ -1,6 +1,9 @@
 package android.example.medicinescheduerapp.ui.prescription;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.example.medicinescheduerapp.JsonPlaceholderApi;
+import android.example.medicinescheduerapp.ui.LoadDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,13 +22,19 @@ import android.view.ViewGroup;
 import android.example.medicinescheduerapp.R;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -41,7 +50,11 @@ public class prescriptionFragment extends Fragment {
     private RecyclerView.Adapter adapter;
     private JsonPlaceholderApi jsonPlaceholderApi;
     private Bundle bundle;
+    private LoadDialog loadDialog;
 
+    public prescriptionFragment(Bundle bundle) {
+        this.bundle = bundle;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,7 +72,7 @@ public class prescriptionFragment extends Fragment {
                 Log.d("TAg","mess  "+buttonCount);
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_auth_container_1,new addMedPresFragment())
+                        .replace(R.id.fragment_auth_container_1,new addMedPresFragment(bundle))
                         .commit();
             }
         });
@@ -123,12 +136,15 @@ public class prescriptionFragment extends Fragment {
         }
     }
     private void savePres(){
+        loadDialog =new LoadDialog(getActivity());
+        loadDialog.startLoad();
         Gson gson = new GsonBuilder().serializeNulls().create();
 
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .callTimeout(5, TimeUnit.SECONDS )
                 .addInterceptor(loggingInterceptor)
                 .build();
 
@@ -143,8 +159,30 @@ public class prescriptionFragment extends Fragment {
         String pat_symptoms = patSymptoms.getText().toString();
         int pat_weight = Integer.parseInt(patWeight.getText().toString());
         String pat_date =patDate.getText().toString();
+        String email = bundle.getString("DataEmail");
+
+        SharedPreferences info =getContext().getSharedPreferences("info", Context.MODE_PRIVATE);
+        String token = info.getString("token","Null");
 
 //        Log.d("Tag","mess  "+pat_symptoms+" "+ pat_date);
+
+        PrescriptionPost prescriptionPost =new PrescriptionPost(email,pat_date,pat_weight,pat_symptoms,mlistItem);
+        Call<PrescriptionPost> call =jsonPlaceholderApi.addPrescription("Bearer "+token,prescriptionPost);
+        call.enqueue(new Callback<PrescriptionPost>() {
+            @Override
+            public void onResponse(Call<PrescriptionPost> call, Response<PrescriptionPost> response) {
+                if(response.isSuccessful())
+                    Toast.makeText(getActivity(),"Prescription added Successfully",Toast.LENGTH_SHORT).show();
+                loadDialog.dismissLoad();
+            }
+
+            @Override
+            public void onFailure(Call<PrescriptionPost> call, Throwable t) {
+                Toast.makeText(getActivity(),t.getMessage(),Toast.LENGTH_SHORT).show();
+                loadDialog.dismissLoad();
+            }
+
+        });
     }
 
 }
