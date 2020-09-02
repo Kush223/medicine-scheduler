@@ -1,8 +1,5 @@
 package android.example.medicinescheduerapp.ui.prescription;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.example.medicinescheduerapp.Prescription;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,8 +15,6 @@ import android.view.ViewGroup;
 import android.example.medicinescheduerapp.R;
 import android.widget.Button;
 import android.widget.EditText;
-
-import java.util.ArrayList;
 
 
 public class addMedPresFragment extends Fragment {
@@ -44,6 +39,13 @@ public class addMedPresFragment extends Fragment {
                         .beginTransaction()
                         .replace(R.id.fragment_auth_container_1,new prescriptionFragment())
                         .commit();
+            }
+        });
+        Button saveButton = root.findViewById(R.id.save_med);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addMed();
             }
         });
 

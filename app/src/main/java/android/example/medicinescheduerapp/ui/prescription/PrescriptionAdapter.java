@@ -1,7 +1,6 @@
 package android.example.medicinescheduerapp.ui.prescription;
 
 import android.content.Context;
-import android.example.medicinescheduerapp.Prescription;
 import android.example.medicinescheduerapp.R;
 import android.view.LayoutInflater;
 import android.view.View;

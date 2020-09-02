@@ -1,6 +1,6 @@
 package android.example.medicinescheduerapp;
 
-import android.example.medicinescheduerapp.Post;
+import android.example.medicinescheduerapp.ui.prescription.Prescription;
 import android.example.medicinescheduerapp.ui.prescription.SearchResponse;
 
 import java.util.List;
