@@ -1,4 +1,4 @@
-package android.example.medicinescheduerapp;
+package android.example.medicinescheduerapp.ui.prescription;
 
 public class Prescription {
     private String med_name;

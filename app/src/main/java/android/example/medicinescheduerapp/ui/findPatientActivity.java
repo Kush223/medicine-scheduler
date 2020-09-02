@@ -1,21 +1,26 @@
 package android.example.medicinescheduerapp.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.example.medicinescheduerapp.ui.prescription.Prescription;
 import android.example.medicinescheduerapp.R;
-import android.example.medicinescheduerapp.ui.login.loginFragment;
 import android.example.medicinescheduerapp.ui.prescription.patientPrescribeFragment;
-import android.example.medicinescheduerapp.ui.profile.doctorProfileFragment;
-import android.example.medicinescheduerapp.ui.profile.patientProfileFragment;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class findPatientActivity extends AppCompatActivity {
+
+    public static int buttonCount=0;
+    public static List<Prescription> mlistItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_patient);
 
+        mlistItem = new ArrayList<Prescription>();
         Bundle bn =getIntent().getExtras();
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_auth_container_1,new patientPrescribeFragment(bn))

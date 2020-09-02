@@ -95,6 +95,8 @@
             android:id="@+id/backbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimary"
+            android:textColor="@color/white"
             android:layout_margin="8dp"
             android:text="back" />
         <Button
@@ -102,6 +104,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="200dp"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/colorPrimary"
             android:text="save"
             android:layout_marginTop="8dp"/>
 
@@ -122,12 +126,11 @@
             android:backgroundTint="#480028EE"
             android:id="@+id/recycler_view_prescription"
             tools:listitem="@layout/med_item"/>
-        <Button
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_med"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:text="Add Medicine"
             android:layout_margin="32dp"
             android:src="@drawable/ic_add" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,9 +1,6 @@
 package android.example.medicinescheduerapp.ui.prescription;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.example.medicinescheduerapp.JsonPlaceholderApi;
-import android.example.medicinescheduerapp.Prescription;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.example.medicinescheduerapp.R;
-import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -27,13 +24,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static android.example.medicinescheduerapp.ui.findPatientActivity.buttonCount;
+import static android.example.medicinescheduerapp.ui.findPatientActivity.mlistItem;
 
 
 public class prescriptionFragment extends Fragment {
@@ -41,9 +38,9 @@ public class prescriptionFragment extends Fragment {
     private EditText patSymptoms;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
-    private List<Prescription> mlistItem;
     private JsonPlaceholderApi jsonPlaceholderApi;
     private Bundle bundle;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,10 +49,13 @@ public class prescriptionFragment extends Fragment {
         patSymptoms= root.findViewById(R.id.pres_symptoms);
         patWeight= root.findViewById(R.id.pres_weight);
 
-        Button add_med = root.findViewById(R.id.add_med);
+
+        FloatingActionButton add_med = root.findViewById(R.id.add_med);
         add_med.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                buttonCount=buttonCount+1;
+                Log.d("TAg","mess  "+buttonCount);
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragment_auth_container_1,new addMedPresFragment())
@@ -75,23 +75,23 @@ public class prescriptionFragment extends Fragment {
             }
         });
 
-        SharedPreferences info = getContext().getSharedPreferences("info", Context.MODE_PRIVATE);
-        String pat_email = info.getString("patientEmail",null);
-        String medName = info.getString("medName",null);
-        String medDur= info.getString("medDur",null);
-        String medDos = info.getString("medDos",null);
+//        String pat_email = info.getString("patientEmail",null);
+//        String medName = info.getString("medName",null);
+//        String medDur= info.getString("medDur",null);
+//        String medDos = info.getString("medDos",null);
 
         recyclerView = root.findViewById(R.id.recycler_view_prescription);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
 
-        mlistItem = new ArrayList<>();
         if(this.getArguments()!=null){
             String medname = this.getArguments().getString("medname");
             String meddur = this.getArguments().getString("meddur");
             String meddos = this.getArguments().getString("meddos");
             if(medname!=null|| meddur!=null|| meddos!=null){
-                mlistItem.add(new Prescription(medname,meddur,meddos));
+                Log.d("TAg","mess  "+buttonCount);
+                mlistItem.add((buttonCount-1),new Prescription(medname,meddur,meddos));
+
             }
         }
         
