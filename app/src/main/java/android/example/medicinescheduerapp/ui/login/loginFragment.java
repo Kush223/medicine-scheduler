@@ -192,6 +192,7 @@ public class loginFragment extends Fragment  {
             public void onResponse(Call<Post> call, Response<Post> response) {
                 if(!response.isSuccessful()){
                     Toast.makeText(getContext(),"User not logged in",Toast.LENGTH_SHORT).show();
+                    loadDialog.dismissLoad();
                     return;
                 }
                 loadDialog.dismissLoad();
@@ -225,8 +226,9 @@ public class loginFragment extends Fragment  {
         call.enqueue(new Callback<Post>() {
             @Override
             public void onResponse(Call<Post> call, Response<Post> response) {
-                if(!response.isSuccessful()){
+                if(!response.isSuccessful())  {
                     Toast.makeText(getContext(),"User not logged in",Toast.LENGTH_SHORT).show();
+                    loadDialog.dismissLoad();
                     return;
                 }
                 loadDialog.dismissLoad();

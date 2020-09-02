@@ -123,6 +123,7 @@ public class doctorProfileFragment extends Fragment {
                     loadDialog.dismissLoad();
                     return;
                 }
+
                 Post searchResponse =response.body().getPatient();
 
                 Log.d("BCChoda", searchResponse.getEmail()+"hello");

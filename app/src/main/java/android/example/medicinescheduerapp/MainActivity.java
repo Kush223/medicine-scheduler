@@ -75,18 +75,21 @@ public class MainActivity extends AppCompatActivity {
                 nav_menu.findItem(R.id.nav_doctor).setVisible(true);
                 nav_menu.findItem(R.id.nav_patient).setVisible(false);
                 nav_menu.findItem(R.id.nav_account).setVisible(false);
+                nav_menu.findItem(R.id.nav_doc_prescriptions).setVisible(true);
                 header.setText("Logged In");
             }
             if(isPat.equals("Yes")){
                 nav_menu.findItem(R.id.nav_patient).setVisible(true);
                 nav_menu.findItem(R.id.nav_doctor).setVisible(false);
                 nav_menu.findItem(R.id.nav_account).setVisible(false);
+                nav_menu.findItem(R.id.nav_doc_prescriptions).setVisible(false);
                 header.setText("Logged In");
             }
         }
         else {
             nav_menu.findItem(R.id.nav_doctor).setVisible(false);
             nav_menu.findItem(R.id.nav_patient).setVisible(false);
+            nav_menu.findItem(R.id.nav_doc_prescriptions).setVisible(false);
         }
     }
 

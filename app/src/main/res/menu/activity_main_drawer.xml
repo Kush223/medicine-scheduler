@@ -28,6 +28,10 @@
             android:id="@+id/nav_patient"
             android:icon="@drawable/ic_healing_black_24dp"
             android:title="Patient"/>
+        <item
+            android:id="@+id/nav_doc_prescriptions"
+            android:icon="@drawable/ic_baseline_portrait_24"
+            android:title="Patient prescriptions"/>
 
     </group>
 </menu>

@@ -40,4 +40,11 @@
         android:name="android.example.medicinescheduerapp.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_doc_prescriptions"
+        android:name="android.example.medicinescheduerapp.ui.docPrescriptions.DocPrescriptions"
+        android:label="Prescriptions"
+        tools:layout="@layout/fragment_doc_prescriptions"
+        />
 </navigation>

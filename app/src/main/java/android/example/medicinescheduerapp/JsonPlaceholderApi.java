@@ -41,6 +41,6 @@ public interface JsonPlaceholderApi {
     Call<PrescriptionPost> addPrescription(@Header("Authorization") String header, @Body PrescriptionPost prescriptionPost);
 
     @GET("records/fetch")
-    Call<Prescription> getPrescription(@Header("Authorization") String header);
+    Call<PrescriptionPost> getPrescription(@Header("Authorization") String header);
 
 }
