@@ -67,7 +67,7 @@ public class patientPrescribeFragment extends Fragment {
             public void onClick(View v) {
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_auth_container_1,new prescriptionFragment())
+                        .replace(R.id.fragment_auth_container_1,new prescriptionFragment(bundle))
                         .commit();
             }
         });
