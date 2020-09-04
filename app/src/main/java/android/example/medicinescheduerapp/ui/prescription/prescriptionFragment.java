@@ -94,7 +94,7 @@ public class prescriptionFragment extends Fragment {
 //        String medDur= info.getString("medDur",null);
 //        String medDos = info.getString("medDos",null);
 
-        recyclerView = root.findViewById(R.id.recycler_view_prescription);
+        recyclerView = root.findViewById(R.id.recycler_view_medicine);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
 
