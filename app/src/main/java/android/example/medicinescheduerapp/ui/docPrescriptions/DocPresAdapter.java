@@ -2,9 +2,7 @@ package android.example.medicinescheduerapp.ui.docPrescriptions;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.example.medicinescheduerapp.Post;
 import android.example.medicinescheduerapp.R;
-import android.example.medicinescheduerapp.ui.prescription.Prescription;
 import android.example.medicinescheduerapp.ui.prescription.PrescriptionAdapter;
 import android.example.medicinescheduerapp.ui.prescription.PrescriptionPost;
 import android.view.LayoutInflater;

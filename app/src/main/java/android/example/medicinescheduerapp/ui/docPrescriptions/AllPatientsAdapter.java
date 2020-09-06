@@ -3,13 +3,9 @@ package android.example.medicinescheduerapp.ui.docPrescriptions;
 import android.content.Context;
 import android.example.medicinescheduerapp.Post;
 import android.example.medicinescheduerapp.R;
-import android.example.medicinescheduerapp.ui.prescription.Prescription;
-import android.example.medicinescheduerapp.ui.prescription.SearchResponse;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;

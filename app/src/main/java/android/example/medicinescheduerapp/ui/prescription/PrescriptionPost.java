@@ -13,10 +13,10 @@ public class PrescriptionPost {
     private int weight;
     @SerializedName("symptoms")
     private String symptoms;
-    @SerializedName("medicine")
-    private List<Prescription> pres;
+    @SerializedName("medicines")
+    private List<Medicines> pres;
 
-    public PrescriptionPost(String email, String date, int weight, String symptoms,List<Prescription> pres) {
+    public PrescriptionPost(String email, String date, int weight, String symptoms,List<Medicines> pres) {
         this.email = email;
         this.date = date;
         this.weight = weight;
@@ -32,5 +32,5 @@ public class PrescriptionPost {
 
     public String getSymptoms() { return symptoms; }
 
-    public List<Prescription> getPres(){return pres;}
+    public List<Medicines> getPres(){return pres;}
 }

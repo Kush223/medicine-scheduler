@@ -31,7 +31,7 @@ public class patientPrescribeFragment extends Fragment {
     private TextView Name;
     private TextView email;
     private TextView phone;
-    private ArrayList<Prescription> listItem;
+    private ArrayList<Medicines> listItem;
 
     public patientPrescribeFragment(Bundle bn) {
         this.bundle=bn;

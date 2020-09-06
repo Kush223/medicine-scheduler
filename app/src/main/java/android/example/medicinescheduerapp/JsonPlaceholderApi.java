@@ -1,6 +1,7 @@
 package android.example.medicinescheduerapp;
 
-import android.example.medicinescheduerapp.ui.prescription.Prescription;
+import android.example.medicinescheduerapp.ui.docPrescriptions.Patients;
+import android.example.medicinescheduerapp.ui.docPrescriptions.Prescriptions;
 import android.example.medicinescheduerapp.ui.prescription.PrescriptionPost;
 import android.example.medicinescheduerapp.ui.prescription.SearchResponse;
 
@@ -41,6 +42,12 @@ public interface JsonPlaceholderApi {
     Call<PrescriptionPost> addPrescription(@Header("Authorization") String header, @Body PrescriptionPost prescriptionPost);
 
     @GET("records/fetch")
-    Call<PrescriptionPost> getPrescription(@Header("Authorization") String header);
+    Call<PrescriptionPost> getPrescription(@Header("Authorization") String header,@Body String email);
+
+    @GET("records/get/patients")
+    Call<Patients> getPatients(@Header("Authorization") String header);
+
+    @POST("records/fetch/doctor")
+    Call<Prescriptions> getPrescriptionsOfAPatient(@Header("Authorization") String header, @Body Post email);
 
 }

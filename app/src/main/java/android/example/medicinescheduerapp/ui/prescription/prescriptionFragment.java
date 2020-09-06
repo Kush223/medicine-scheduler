@@ -104,7 +104,7 @@ public class prescriptionFragment extends Fragment {
             String meddos = this.getArguments().getString("meddos");
             if(medname!=null|| meddur!=null|| meddos!=null){
                 Log.d("TAg","mess  "+buttonCount);
-                mlistItem.add((buttonCount-1),new Prescription(medname,meddur,meddos));
+                mlistItem.add((buttonCount-1),new Medicines(medname,meddur,meddos));
 
             }
         }

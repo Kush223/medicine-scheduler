@@ -142,6 +142,7 @@ public class doctorProfileFragment extends Fragment {
             @Override
             public void onFailure(Call<SearchResponse> call, Throwable t) {
                 Toast.makeText(getContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
+                loadDialog.dismissLoad();
             }
         });
     }

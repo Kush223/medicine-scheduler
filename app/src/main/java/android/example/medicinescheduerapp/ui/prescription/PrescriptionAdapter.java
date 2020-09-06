@@ -14,10 +14,10 @@ import java.util.List;
 
 public class PrescriptionAdapter extends RecyclerView.Adapter<PrescriptionAdapter.PresHolder> {
 
-    private List<Prescription> listitem;
+    private List<Medicines> listitem;
     private Context context;
 
-    public PrescriptionAdapter(List<Prescription> listitem, Context context) {
+    public PrescriptionAdapter(List<Medicines> listitem, Context context) {
         this.listitem = listitem;
         this.context = context;
     }
@@ -31,7 +31,7 @@ public class PrescriptionAdapter extends RecyclerView.Adapter<PrescriptionAdapte
 
     @Override
     public void onBindViewHolder(@NonNull PresHolder holder, int position) {
-        Prescription pres =listitem.get(position);
+        Medicines pres =listitem.get(position);
 
         holder.med_name.setText(pres.getMed_name());
         holder.med_dose.setText(pres.getMed_dosage());
