@@ -42,16 +42,14 @@ public class patientProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_patient_profile, container, false);
-        searchDoctor= root.findViewById(R.id.search_doctor);
-        searchEdit = root.findViewById(R.id.search_d_edit);
-        patientName=root.findViewById(R.id.patient_name);
-        patientRecords= root.findViewById(R.id.patient_records);
-        patientPhone= root.findViewById(R.id.patient_phone);
+        patientName = root.findViewById(R.id.patient_name);
+        patientRecords = root.findViewById(R.id.patient_records);
+        patientPhone = root.findViewById(R.id.patient_phone);
 
 
-        SharedPreferences info = getContext().getSharedPreferences("info",Context.MODE_PRIVATE);
-        String name= info.getString("name",null);
-        String phone = info.getString("phone",null);
+        SharedPreferences info = getContext().getSharedPreferences("info", Context.MODE_PRIVATE);
+        String name = info.getString("name", null);
+        String phone = info.getString("phone", null);
         patientName.setText(name);
         patientPhone.setText(phone);
 
@@ -71,38 +69,8 @@ public class patientProfileFragment extends Fragment {
                 .build();
 
         jsonPlaceholderApi = retrofit.create(JsonPlaceholderApi.class);
-
-
-        searchDoctor.setOnClickListener(new  View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                findDoctor();
-            }
-        });
         return root;
     }
-    private void findDoctor(){
-        String emailEntered = searchEdit.getText().toString();
-        SharedPreferences logged = getContext().getSharedPreferences("login", Context.MODE_PRIVATE);
-        String token = logged.getString("token","Null");
-        Post post = new Post(emailEntered,null,null,null,null,null,null);
-        Call<Post> call = jsonPlaceholderApi.findDoctor("token "+token,post);
-        call.enqueue(new Callback<Post>() {
-            @Override
-            public void onResponse(Call<Post> call, Response<Post> response) {
-                if(!response.isSuccessful()){
-                    Toast.makeText(getContext(),"Doctor not found",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                Post postResponse = response.body();
-                Toast.makeText(getContext(),"Doctor found",Toast.LENGTH_SHORT).show();
 
-            }
-
-            @Override
-            public void onFailure(Call<Post> call, Throwable t) {
-                Toast.makeText(getContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 }
+
