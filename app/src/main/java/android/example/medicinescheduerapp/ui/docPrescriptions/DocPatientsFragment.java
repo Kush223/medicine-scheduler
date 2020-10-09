@@ -40,7 +40,6 @@ private List<Post> mlistview;
 private LoadDialog loadDialog;
 private List<Post> patients;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -116,4 +115,5 @@ private List<Post> patients;
             }
         });
     }
+
 }

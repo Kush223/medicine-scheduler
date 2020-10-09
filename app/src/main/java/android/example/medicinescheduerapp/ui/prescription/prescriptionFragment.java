@@ -166,7 +166,7 @@ public class prescriptionFragment extends Fragment {
 
 //        Log.d("Tag","mess  "+pat_symptoms+" "+ pat_date);
 
-        PrescriptionPost prescriptionPost =new PrescriptionPost(email,pat_date,pat_weight,pat_symptoms,mlistItem);
+        PrescriptionPost prescriptionPost =new PrescriptionPost(email,pat_date,pat_weight,pat_symptoms,mlistItem,null);
         Call<PrescriptionPost> call =jsonPlaceholderApi.addPrescription("Bearer "+token,prescriptionPost);
         call.enqueue(new Callback<PrescriptionPost>() {
             @Override
