@@ -5,14 +5,20 @@ import android.example.medicinescheduerapp.ui.docPrescriptions.Prescriptions;
 import android.example.medicinescheduerapp.ui.prescription.PrescriptionPost;
 import android.example.medicinescheduerapp.ui.prescription.SearchResponse;
 
+import androidx.room.Delete;
+import androidx.room.Update;
+
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface JsonPlaceholderApi {
     @POST("doctors/login")
@@ -49,5 +55,11 @@ public interface JsonPlaceholderApi {
 
     @POST("records/fetch/doctor")
     Call<Prescriptions> getPrescriptionsOfAPatient(@Header("Authorization") String header, @Body Post email);
+
+    @PUT("records/update/{id}")
+    Call<PrescriptionPost> updatePrescription(@Path("id") int id, @Header("Authorization") String header );
+
+    @DELETE("records/delete/{id}")
+    Call<Void> deletePrescription(@Path("id") String id, @Header("Authorization") String header );
 
 }

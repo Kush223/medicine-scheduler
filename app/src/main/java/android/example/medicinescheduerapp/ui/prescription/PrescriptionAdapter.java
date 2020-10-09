@@ -57,4 +57,5 @@ public class PrescriptionAdapter extends RecyclerView.Adapter<PrescriptionAdapte
             med_dose =(TextView)itemView.findViewById(R.id.pres_med_dosage);
         }
     }
+
 }
