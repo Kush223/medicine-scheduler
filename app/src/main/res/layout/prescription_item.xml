@@ -4,7 +4,9 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="10dp">
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -16,6 +18,13 @@
             android:maxLines="1"
             android:text="Date"
             android:textSize="20sp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_baseline_delete_24"
+            android:layout_alignParentRight="true"
+            android:id="@+id/pres_delete"/>
+
         <TextView
             android:id="@+id/pres_item_weight"
             android:layout_width="match_parent"
@@ -43,5 +52,5 @@
             tools:listitem="@layout/med_item"/>
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </RelativeLayout>
-
+</ScrollView>
 </androidx.cardview.widget.CardView>
