@@ -106,7 +106,7 @@ public class DocPrescriptionsFragment extends Fragment {
                             medlist.add(new Medicines(medicine.getMed_name(), medicine.getMed_days(), medicine.getMed_dosage()));
                         }
                         mlistview.add(new PrescriptionPost(prescription.getEmail(), prescription.getDate()
-                                , prescription.getWeight(), prescription.getSymptoms(), medlist,null));
+                                , prescription.getWeight(), prescription.getSymptoms(), medlist,prescription.getId()));
                     }
 
                 }
@@ -121,23 +121,23 @@ public class DocPrescriptionsFragment extends Fragment {
             }
         });
 
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-            @Override
-            public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-                return 0;
-            }
-
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                mlistview.remove(viewHolder.getAdapterPosition());
-                adapter.notifyDataSetChanged();
-            }
-        }).attachToRecyclerView(recyclerView);
+//        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+//            @Override
+//            public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+//                return 0;
+//            }
+//
+//            @Override
+//            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+//                return false;
+//            }
+//
+//            @Override
+//            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+//                mlistview.remove(viewHolder.getAdapterPosition());
+//                adapter.notifyDataSetChanged();
+//            }
+//        }).attachToRecyclerView(recyclerView);
 
         return root;
     }
@@ -161,7 +161,7 @@ public class DocPrescriptionsFragment extends Fragment {
             public void onDeleteClick(PrescriptionPost prescriptionPost, int position) {
 //              PrescriptionPost swipedPrescription = adapter.getItemAt(viewHolder.getAdapterPosition());
                 String id = adapter.getItemAt(position).getId();
-                //Log.d("ID","Id is"+id);
+                Log.d("ID","Id is "+id);
                 Call<Void> call1= jsonPlaceholderApi.deletePrescription(id,"Bearer "+token);
                 call1.enqueue(new Callback<Void>() {
                     @Override
